@@ -13,9 +13,9 @@ public class MainActivity extends ReactActivity {
     return "MyAppCodePush";
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-        AppCenter.start(getApplication(), "18473b98-b8ed-4b41-9b1b-9c23858aa16c",
-                Analytics.class, Crashes.class);
-  }
+  // @Override
+  // protected void onCreate(Bundle savedInstanceState) {
+  //       AppCenter.start(getApplication(), "18473b98-b8ed-4b41-9b1b-9c23858aa16c",
+  //               Analytics.class, Crashes.class);
+  // }
 }
