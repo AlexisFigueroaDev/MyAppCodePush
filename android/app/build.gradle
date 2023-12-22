@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 
+
 import com.android.build.OutputFile
 
 /**
@@ -226,3 +227,11 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
+
+
+android.buildTypes.each { buildType ->
+    // to prevent incorrect long value restoration from strings.xml we need to wrap it with double quotes
+    // https://github.com/microsoft/cordova-plugin-code-push/issues/264
+    buildType.resValue 'string', "CODE_PUSH_APK_BUILD_TIME", String.format("\"%d\"", System.currentTimeMillis())
+}
