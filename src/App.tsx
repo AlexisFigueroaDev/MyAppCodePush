@@ -58,13 +58,13 @@ const App = () => {
 
   return (
     <View>
-      <Text>hola ale</Text>
+      <Text>hola ale 1</Text>
     </View>
   );
 };
 
 export default codePush({
-  // checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
   // installMode: codePush.InstallMode.IMMEDIATE,
   updateDialog: true,
 })(App);
