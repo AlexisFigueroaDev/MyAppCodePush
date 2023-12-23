@@ -56,7 +56,7 @@ const App = () => {
 
   return (
     <View>
-      <Text>Hola Jime</Text>
+      <Text>Hola Lisbeth</Text>
     </View>
   );
 };
