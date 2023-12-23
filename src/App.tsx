@@ -25,18 +25,43 @@ const App = () => {
     const checkForUpdates = async () => {
       try {
         const update = await codePush.checkForUpdate();
+        // const update = true;
         if (update) {
-          showUpdateDialog(update);
+          showUpdateDialog();
         }
       } catch (error) {
-        console.error('Error checking for update:', error);
+        console.error('Error checking for update::', error);
       }
     };
 
     checkForUpdates();
   }, []);
 
-  const showUpdateDialog = updateInfo => {
+  const updateCallback = status => {
+    console.log('status', status);
+    switch (status) {
+      case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+        console.log('Verificando actualizaciones...');
+        break;
+      case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+        console.log('Descargando paquete...');
+        break;
+      case codePush.SyncStatus.INSTALLING_UPDATE:
+        console.log('Instalando actualización...');
+        break;
+      case codePush.SyncStatus.UP_TO_DATE:
+        console.log('La aplicación ya está actualizada.');
+        break;
+      case codePush.SyncStatus.UPDATE_INSTALLED:
+        console.log('Actualización instalada correctamente.');
+        break;
+      case codePush.SyncStatus.UNKNOWN_ERROR:
+        console.error('Error desconocido al sincronizar con CodePush.');
+        break;
+    }
+  };
+
+  const showUpdateDialog = () => {
     Alert.alert(
       'Actualización disponible',
       'Una nueva versión está disponible. ¿Quieres actualizar?',
@@ -44,11 +69,19 @@ const App = () => {
         {
           text: 'Actualizar',
           onPress: () =>
-            codePush.sync({installMode: codePush.InstallMode.IMMEDIATE}),
+            codePush.sync(
+              {
+                updateDialog: {appendReleaseDescription: false},
+                installMode: codePush.InstallMode.IMMEDIATE,
+              },
+              updateCallback,
+            ),
         },
         {
-          text: 'Cancelar',
-          onPress: () => {},
+          text: 'Cancelarr',
+          onPress: () => {
+            console.log('User cancel update');
+          },
         },
       ],
     );
@@ -56,12 +89,11 @@ const App = () => {
 
   return (
     <View>
-      <Text>Hola a todo el mundo release 3</Text>
+      <Text>hola ale 4</Text>
     </View>
   );
 };
 
 export default codePush({
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.IMMEDIATE,
 })(App);
