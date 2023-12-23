@@ -5,7 +5,7 @@ import {Text, View} from 'react-native';
 const App = () => {
   return (
     <View>
-      <Text>Hola a todo el mundo</Text>
+      <Text>Hola a todo el mundo release</Text>
     </View>
   );
 };
