@@ -1,7 +1,7 @@
 import React from 'react';
-
-import {Text, View} from 'react-native';
 import codePush from 'react-native-code-push';
+import {Text, View} from 'react-native';
+
 const App = () => {
   return (
     <View>
@@ -10,4 +10,8 @@ const App = () => {
   );
 };
 
-export default codePush(App);
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  updateDialog: true,
+  installMode: codePush.InstallMode.IMMEDIATE,
+})(App);
