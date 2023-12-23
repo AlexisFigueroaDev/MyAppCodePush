@@ -25,6 +25,8 @@ const App = () => {
     const checkForUpdates = async () => {
       try {
         const update = await codePush.checkForUpdate();
+
+        console.log(update);
         if (update) {
           showUpdateDialog(update);
         }
@@ -56,12 +58,12 @@ const App = () => {
 
   return (
     <View>
-      <Text>Hola Lisbeth 4</Text>
+      <Text>hola ale</Text>
     </View>
   );
 };
 
 export default codePush({
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  installMode: codePush.InstallMode.IMMEDIATE,
+  // installMode: codePush.InstallMode.IMMEDIATE,
 })(App);
