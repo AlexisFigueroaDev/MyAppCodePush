@@ -15,11 +15,27 @@
 //   updateDialog: true,
 //   installMode: codePush.InstallMode.IMMEDIATE,
 // })(App);
-import React from 'react';
+
+import React, {useEffect} from 'react';
 import codePush from 'react-native-code-push';
 import {Text, View, Alert} from 'react-native';
 
 const App = () => {
+  useEffect(() => {
+    const checkForUpdates = async () => {
+      try {
+        const update = await codePush.checkForUpdate();
+        if (update) {
+          showUpdateDialog(update);
+        }
+      } catch (error) {
+        console.error('Error checking for update:', error);
+      }
+    };
+
+    checkForUpdates();
+  }, []);
+
   const showUpdateDialog = updateInfo => {
     Alert.alert(
       'Actualización disponible',
@@ -40,26 +56,12 @@ const App = () => {
 
   return (
     <View>
-      <Text>Hola a todo el mundo release 2</Text>
+      <Text>Hola a todo el mundo release 3</Text>
     </View>
   );
 };
 
 export default codePush({
   checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
-  updateDialog: {
-    appendReleaseDescription: true,
-    descriptionPrefix: '\n\nCambios:\n',
-    mandatoryContinueButtonLabel: 'Actualizar',
-    mandatoryUpdateMessage:
-      'Hay una actualización disponible que debes instalar.',
-    optionalIgnoreButtonLabel: 'Cancelar',
-    optionalInstallButtonLabel: 'Actualizar',
-    optionalUpdateMessage:
-      'Hay una actualización disponible. ¿Quieres instalarla?',
-    title: 'Actualización disponible',
-    updateDescription: 'Descripción de la actualización aquí.',
-  },
   installMode: codePush.InstallMode.IMMEDIATE,
-  mandatoryInstallMode: codePush.InstallMode.IMMEDIATE,
 })(App);
